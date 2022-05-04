@@ -2,28 +2,36 @@ import { Link } from 'react-router-dom';
 import './Users.css';
 import { useState ,useEffect} from 'react';
 import axios from 'axios'
+import Backconn from '../../backconn/Backconn';
 
 function Users() {
 
 var [users,setUser] = useState({})
 
 useEffect(()=>{
-  axios.get('http://127.0.0.1:5000/users')
-  .then((response)=>{setUser(response.data)})
+  var conn3=new Backconn()
+  var promise3=conn3.users()
+  /*axios.get('http://127.0.0.1:5000/users')*/
+  promise3.then((response)=>{setUser(response.data)})
 
 }, [])
 
  var onDeleteClick =(e) =>{
-  axios({
+  /*axios({
     method: 'POST',
     url: 'http://127.0.0.1:5000/user/delete',
     data: {
       id: e.target.value
     },
     headers: {'Content-Type': 'application/json'}
-  }).then( (res) => {
-    axios.get('http://127.0.0.1:5000/users')
-  .then((response)=>{setUser(response.data)})
+  })*/
+  var conn=new Backconn()
+  var promise=conn.user_delete(e.target.value)
+  promise.then( (res) => {
+    /*axios.get('http://127.0.0.1:5000/users')*/
+    var conn2=new Backconn()
+    var promise2=conn.users()
+    promise2.then((res)=>{setUser(res.data)})
   })
  }
 

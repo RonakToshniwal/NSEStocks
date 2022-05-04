@@ -2,6 +2,7 @@ import './UserStocks.css';
 import axios from 'axios'
 import { useState ,useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Backconn from '../../backconn/Backconn';
 
 
 function UserStocks(props) {
@@ -17,21 +18,29 @@ function UserStocks(props) {
   }
 
   useEffect (()=>{
-    axios({
+    var conn = new Backconn()
+    var promise=conn.getuserstocks(id)
+    /*axios({
       method: 'POST',
       url: 'http://127.0.0.1:5000/getuserstocks',
       data: {
         id: id
       },
       headers: {'Content-Type': 'application/json'}
-    }).then( (res) =>{setdata(res.data); console.log(res.data)})
+    })*/
+    promise.then( (res) =>{setdata(res.data); console.log(res.data)})
 
-    axios({
+
+    var conn2 = new Backconn()
+    var promise2=conn2.stocksym()
+
+    /*axios({
       method: 'GET',
       url: 'http://127.0.0.1:5000/stocksym',
       
       headers: {'Content-Type': 'application/json'}
-    }).then((res)=>{Changesdata(res.data);ChangeFilterList(res.data)})
+    })*/
+    promise2.then((res)=>{Changesdata(res.data);ChangeFilterList(res.data)})
   
   }
   
@@ -40,7 +49,7 @@ function UserStocks(props) {
 function onClickDelete(e){
   console.log("THIS IS THE VALUE")
   console.log(id,e.target.value)
-  axios({
+  /*axios({
     method: 'POST',
     url: 'http://127.0.0.1:5000/deleteuserstocks',
     data: {
@@ -48,15 +57,22 @@ function onClickDelete(e){
       symbol:e.target.value
     },
     headers: {'Content-Type': 'application/json'}
-  }).then( (res) => {
-    axios({
+  })*/
+  var conn3 = new Backconn()
+  var promise3 = conn3.deletuserstocks(id,e.target.value)
+  promise3.then( (res) => {
+
+    var conn4=new Backconn()
+    var promise4=conn4.getuserstocks(id)
+    /*axios({
       method: 'POST',
       url: 'http://127.0.0.1:5000/getuserstocks',
       data: {
         id: id
       },
       headers: {'Content-Type': 'application/json'}
-    }).then( (res) =>{setdata(res.data)})
+    })*/
+    promise4.then( (res) =>{setdata(res.data)})
     
 
     }
@@ -66,7 +82,10 @@ function onClickDelete(e){
 }
 
 function onSubmithandler(e){
-  axios({
+
+  var conn5 = new Backconn()
+  var promise5= conn5.addstock(id,e.target.value)
+  /*axios({
     method: 'POST',
     url: 'http://127.0.0.1:5000/addstock',
     data: {
@@ -74,17 +93,21 @@ function onSubmithandler(e){
       symbol:e.target.value
     },
     headers: {'Content-Type': 'application/json'}
-  })
-  .then (
+  })*/
+
+  promise5.then (
      (res) => {
-      axios({
+       var conn6=new Backconn()
+       var promise6=conn6.getuserstocks(id)
+      /*axios({
         method: 'POST',
         url: 'http://127.0.0.1:5000/getuserstocks',
         data: {
           id: id
         },
         headers: {'Content-Type': 'application/json'}
-      }).then( (res) =>{setdata(res.data)})
+      })*/
+      promise6.then( (res) =>{setdata(res.data)})
      } 
   )
   e.preventDefault()

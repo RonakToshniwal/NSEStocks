@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Form,Button } from 'react-bootstrap';
+import Backconn from '../../backconn/Backconn';
 function AddUser() {
   const [title, setTitle] = useState('')
   const [age, setAge] = useState('')
@@ -12,7 +13,7 @@ function AddUser() {
 
 
   function onSubmithandler(e){
-     axios({
+     /*axios({
       method: 'POST',
       url: 'http://127.0.0.1:5000/user/new/',
       data: {
@@ -20,7 +21,11 @@ function AddUser() {
         age: age
       },
       headers: {'Content-Type': 'application/json'}
-    })
+    })*/
+
+    const conn =new Backconn()
+    const promise=conn.user_new(title,age)
+
     navigate("/users")
     
   }

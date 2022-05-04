@@ -4,12 +4,16 @@ import axios from 'axios'
 import { useState ,useEffect} from 'react';
 import StockCard from '../Card/StockCard';
 import { Row,Container,Col } from 'react-bootstrap';
+import Backconn from '../../backconn/Backconn';
 function Stocks() {
 var [users,setUser] = useState({})
 
   useEffect(()=>{
-    axios.get('http://127.0.0.1:5000/stock/all/')
-    .then((response)=>{setUser(response.data); })
+    const conn = new Backconn()
+    const promise=conn.stock_all()
+    promise.then((response)=>{setUser(response.data);})
+    /*axios.get('http://127.0.0.1:5000/stock/all/')
+    .then((response)=>{setUser(response.data); })*/
     
 },[]);
     

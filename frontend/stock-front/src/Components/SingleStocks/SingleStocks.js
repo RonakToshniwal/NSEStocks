@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"
 import Graph from "../Graph/Graph.js"
+import Backconn from "../../backconn/Backconn";
 
 function SingleStocks(){
   const [data,Changedata] = useState({})
@@ -20,28 +21,15 @@ function SingleStocks(){
 
 
   useEffect(()=>{
-    axios({
-      method: 'POST',
-      url: 'http://127.0.0.1:5000/stock',
-      
-      headers: {'Content-Type': 'application/json'},
-      data: {
-        'symbol': location.state.id
-      }
-
-    }).then((res)=>{Changedata(res.data)})
+    const conn = new Backconn()
+    const promise=conn.stock(location.state.id)
     
+    promise.then((res)=>{Changedata(res.data)})
+    const conn2 = new Backconn()
+    
+    const promise2= conn2.gettimedata(location.state.id)
 
-    axios({
-      method: 'POST',
-      url: 'http://127.0.0.1:5000/gettimedata',
-      
-      headers: {'Content-Type': 'application/json'},
-      data: {
-        'symbol': location.state.id
-      }
-
-    }).then((res)=>{
+    promise2.then((res)=>{
       setCloseData(res.data.close); 
       setOpenData(res.data.open);
     setLowData(res.data.low);

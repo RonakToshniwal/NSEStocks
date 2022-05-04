@@ -1,4 +1,4 @@
-
+import Backconn from '../../backconn/Backconn';
 import './SearchStock.css';
 import { useEffect, useState} from 'react'
 import axios from 'axios';
@@ -10,18 +10,24 @@ function SearchStock() {
 
 
   const navigate=useNavigate()
+  const conn=new Backconn()
 
 
 
 
 
   useEffect(()=>{
-    axios({
+     var m=conn.stocksym()
+     Changedata(m.then((res)=>{Changedata(res.data);
+      ChangeFilterList(res.data);
+    }))
+    /*axios({
       method: 'GET',
       url: 'http://127.0.0.1:5000/stocksym',
       
       headers: {'Content-Type': 'application/json'}
-    }).then((res)=>{Changedata(res.data);ChangeFilterList(res.data)})
+    }).then((res)=>{Changedata(res.data);ChangeFilterList(res.data)})*/
+   
     
 
   },[])
