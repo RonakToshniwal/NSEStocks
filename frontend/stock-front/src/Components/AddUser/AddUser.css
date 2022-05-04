@@ -1,0 +1,28 @@
+.form-add{
+    display: flexbox;
+    justify-content: center; 
+    width: 50%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 5rem;
+    background-color: rgb(106,115,108);
+    border: solid black;
+    box-shadow: 2px 20px 20px 2px rgba(0,0,0,0.5);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.form-add input {
+    width: 100%;
+    margin-top:10px;
+    margin-right: 20%;
+    display: flex;
+
+  }
+.sub{
+    display: flex;
+    margin-top: 2%;
+    justify-content: center;
+    width: 20%;
+    background-color: aqua;
+}
