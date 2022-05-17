@@ -13,10 +13,10 @@ function Frontpage() {
               <CustomCard route="/users" image = {allusers} title="All Users" body="See all the listed users in a tabular format" action="Users"/>
             </Col>
             <Col md={12} xs={12} lg={4}> 
-              <CustomCard route="/stocks" image = {search} title="Stocks" body="See all the Stocks in a tabular format" action="Stocks"/>
+              <CustomCard route="/stocks" image = {stocks} title="Index" body="See all the Stocks in a tabular format" action="Stocks"/>
             </Col>
             <Col md={12} xs={12} lg={4}> 
-              <CustomCard route="/searchstock" image = {stocks} title="Search Stocks" body="See Real Time Prices of any stock in one click" action="Search Stocks"/>
+              <CustomCard route="/searchstock" image = {search} title="Search Stocks" body="See Real Time Prices of any stock in one click" action="Search Stocks"/>
             </Col>
           </Row>
         </Container>

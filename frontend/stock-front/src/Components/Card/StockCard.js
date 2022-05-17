@@ -8,7 +8,7 @@ const StockCard = (props) => {
                     <Card.Subtitle className="mb-2 text-muted">{props.symbol}</Card.Subtitle>
                     <Card.Text > Value :{props.high}</Card.Text>
                     <Card.Text style={{color:props.low>0?'green':'red'}}  > Day Change: {props.low}</Card.Text>
-                    <Card.Text  style={{color:props.change>0?'green':'red'}}>  percentage Change :{props.price}</Card.Text>
+                    <Card.Text  style={{color:props.change>0?'red':'green'}}>  percentage Change :{props.price}</Card.Text>
                 </Card.Body>
             </Card>
         </>
